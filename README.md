@@ -1,3 +1,2 @@
-# Code
-Finite element method
-Basic FEM Course
+# FEM
+Basic Finite element method
