@@ -10,7 +10,7 @@ xw=[0.33333333333333    0.33333333333333   -0.56250000000000
 qd = 0; % Initial value
 
 % Generate mesh
-h=1/16;
+h=1/2^5;
 x=0:h:1;
 M = length(x);
 col = repmat(x',M,1);

@@ -81,12 +81,6 @@ end
 B = unique(B, 'rows');
 b(B) = [];
 
-% error
-rhs = f(N(:,1),N(:,2))*h*h*0.5;
-rhs(B) = [];
-
-abs(max(rhs-b))/abs(max(rhs))
-
 
 
 
