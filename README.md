@@ -1,2 +1,2 @@
 # FEM
-Basic Finite element method
+Basic finite element method
