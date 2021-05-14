@@ -127,13 +127,7 @@ while stop_crt > 1e-5
     k1 = k1 + 1;
     x = x_new;
     for i = 1:M
-        x_new(i) = b(i);
-        for j = 1:M
-            if j == i
-                continue
-            end
-            x_new(i) = x_new(i)-A(i,j)*x(j);
-        end
+        x_new(i) = b(i) - sum(A(i,:)*x) + A(i,i)*x(i);
         x_new(i) = x_new(i)/A(i,i);
     end
     stop_crt = max(x_new-x)/max(x_new);
@@ -147,22 +141,13 @@ while stop_crt > 1e-5
     k2 = k2 + 1;
     x = x_new;
     for i = 1:M
-        x_new(i) = b(i);        
         if i == 1
-            for j = i+1:M
-                x_new(i) = x_new(i)-A(i,j)*x(j);
-            end
+            x_new(i) = b(i) - A(i,2:end)*x(2:end);
         elseif i == M
-            for j = 1:i-1
-                x_new(i) = x_new(i)-A(i,j)*x_new(j);
-            end
+            x_new(i) = b(i) - A(i,1:end-1)*x_new(1:end-1);          
         else
-            for j = 1:i-1
-                x_new(i) = x_new(i)-A(i,j)*x_new(j);
-            end
-            for j = i+1:M
-                x_new(i) = x_new(i)-A(i,j)*x(j);
-            end
+            x_new(i) = b(i) - A(i,1:i-1)*x_new(1:i-1) - ...
+                            - A(i,i+1:end)*x(i+1:end);
         end
         x_new(i) = x_new(i)/A(i,i);
     end
