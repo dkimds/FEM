@@ -139,35 +139,35 @@ while stop_crt > 1e-5
     stop_crt = max(x_new-x)/max(x_new);
 end
 
-% Gauss-Siedel method
-stop_crt = 1;
-x_new = zeros(M,1);
-k2 = 0; % # of iter
-while stop_crt > 1e-5
-    k2 = k2 + 1;
-    x = x_new;
-    for i = 1:M
-        x_new(i) = b(i);        
-        if i == 1
-            for j = i+1:M
-                x_new(i) = x_new(i)-A(i,j)*x(j);
-            end
-        elseif i == M
-            for j = 1:i-1
-                x_new(i) = x_new(i)-A(i,j)*x_new(j);
-            end
-        else
-            for j = 1:i-1
-                x_new(i) = x_new(i)-A(i,j)*x_new(j);
-            end
-            for j = i+1:M
-                x_new(i) = x_new(i)-A(i,j)*x(j);
-            end
-        end
-        x_new(i) = x_new(i)/A(i,i);
-    end
-    stop_crt = max(x_new-x)/max(x_new);
-end
+% % Gauss-Siedel method
+% stop_crt = 1;
+% x_new = zeros(M,1);
+% k2 = 0; % # of iter
+% while stop_crt > 10^-5
+%     k2 = k2 + 1;
+%     x = x_new;
+%     for i = 1:M
+%         if i == 1
+%             for j = i+1:M
+%                 x_new(i) = x_new(i)-A(i,j)*x(j);
+%             end
+%         elseif i == M
+%             for j = 1:i-1
+%                 x_new(i) = x_new(i)-A(i,j)*x_new(j);
+%             end
+%         else
+%             for j = 1:i-1
+%                 x_new(i) = x_new(i)-A(i,j)*x_new(j);
+%             end
+%             for j = i+1:M
+%                 x_new(i) = x_new(i)-A(i,j)*x(j);
+%             end
+%         end
+%         x_new(i) = x_new(i)+b(i);
+%         x_new(i) = x_new(i)/A(i,i);
+%     end
+%     stop_crt = max(x_new-x)/max(x_new);
+% end
 
 
 

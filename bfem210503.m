@@ -1,7 +1,7 @@
 % Generate right hand side matrix b(=Ax) using gaussian quadrature  
 clear
 % Source
-f = @(x,y) 2*pi*pi*sin(pi*x).*sin(pi*y);
+f = @(x,y) 2*pi*pi*sin(pi*x)*sin(pi*y);
 % Quadrature points and weights
 xw=[0.33333333333333    0.33333333333333   -0.56250000000000
     0.20000000000000    0.20000000000000    0.52083333333333
