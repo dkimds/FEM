@@ -1,7 +1,7 @@
 % Generate right hand side matrix b(=Ax) using gaussian quadrature  
 clear
 % Source
-f = @(x,y) 2*pi*pi*sin(pi*x)*sin(pi*y);
+f = @(x,y) 2*pi*pi*sin(pi*x).*sin(pi*y);
 % Quadrature points and weights
 xw=[0.33333333333333    0.33333333333333   -0.56250000000000
     0.20000000000000    0.20000000000000    0.52083333333333
@@ -9,7 +9,7 @@ xw=[0.33333333333333    0.33333333333333   -0.56250000000000
     0.20000000000000    0.60000000000000    0.52083333333333];
 
 % Generate mesh
-h=1/8;
+h=1/2^3;
 x=0:h:1;
 M = length(x);
 col = repmat(x',M,1);
@@ -41,9 +41,9 @@ for n = 1:length(T)
     x3 = m(3,1); 
     y3 = m(3,2);
     % basis functions
-    phi1 = m\([1 0 0]');
-    phi2 = m\([0 1 0]');
-    phi3 = m\([0 0 1]');
+    p1 = m\([1 0 0]');
+    p2 = m\([0 1 0]');
+    p3 = m\([0 0 1]');
     % Integration
     area_tri = abs(det(m))*0.5;
     qd1 =0;
@@ -52,9 +52,9 @@ for n = 1:length(T)
     for i = 1:4
         s = x1 + (x2-x1)*xw(i,1) + (x3-x1)*xw(i,2);
         t = y1 + (y2-y1)*xw(i,1) + (y3-y1)*xw(i,2);
-        qd1 = qd1 + area_tri*xw(i,3)*f(s,t)*(phi1(1)*s + phi1(2)*t + phi1(3));
-        qd2 = qd2 + area_tri*xw(i,3)*f(s,t)*(phi2(1)*s + phi2(2)*t + phi2(3));
-        qd3 = qd3 + area_tri*xw(i,3)*f(s,t)*(phi3(1)*s + phi3(2)*t + phi3(3));
+        qd1 = qd1 + area_tri*xw(i,3)*f(s,t)*(p1(1)*s + p1(2)*t + p1(3));
+        qd2 = qd2 + area_tri*xw(i,3)*f(s,t)*(p2(1)*s + p2(2)*t + p2(3));
+        qd3 = qd3 + area_tri*xw(i,3)*f(s,t)*(p3(1)*s + p3(2)*t + p3(3));
     end  
     % Assembly
     b(k(1)) = b(k(1)) + qd1;
@@ -78,10 +78,14 @@ for k = 1:length(N)
         B=[B k];
     end
 end
-
+B = unique(B, 'rows');
 b(B) = [];
 
+% error
+rhs = f(N(:,1),N(:,2))*h*h*0.5;
+rhs(B) = [];
 
+abs(max(rhs-b))/abs(max(rhs))
 
 
 

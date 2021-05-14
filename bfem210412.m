@@ -70,10 +70,12 @@ for k = 1:length(N)
         B=[B k];
     end
 end
+B = unique(B, 'rows');
 A(B,:)=[];
 A(:,B)=[];
 
-f = @(x, y) 2 * pi * pi * sin(pi*x) .* sin(pi*y);
+% Solve the matrix equation w/ back-slash operation
+f = @(x, y) 2*pi*pi*sin(pi*x).*sin(pi*y);
 rhs = f(N(:,1),N(:,2))*h*h*0.5;
 rhs(B)=[];
 
