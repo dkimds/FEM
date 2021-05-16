@@ -146,7 +146,7 @@ while stop_crt > 1e-5
         elseif i == M
             x_new(i) = b(i) - A(i,1:end-1)*x_new(1:end-1);          
         else
-            x_new(i) = b(i) - A(i,1:i-1)*x_new(1:i-1) - ...
+            x_new(i) = b(i) - A(i,1:i-1)*x_new(1:i-1) ...
                             - A(i,i+1:end)*x(i+1:end);
         end
         x_new(i) = x_new(i)/A(i,i);
