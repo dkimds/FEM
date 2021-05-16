@@ -127,7 +127,7 @@ while stop_crt > 1e-5
     k1 = k1 + 1;
     x = x_new;
     for i = 1:M
-        x_new(i) = b(i) - sum(A(i,:)*x) + A(i,i)*x(i);
+        x_new(i) = b(i) - A(i,:)*x + A(i,i)*x(i);
         x_new(i) = x_new(i)/A(i,i);
     end
     stop_crt = max(x_new-x)/max(x_new);
