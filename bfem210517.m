@@ -21,8 +21,9 @@ N=[row, col];
 T = [];
 for j = 1:M-1
     for i = 1:M-1
+        % counter-clockwise
         T = [T;
-            i+M*(j-1) i+M*j i+1+M*(j-1);
+            i+M*(j-1) i+M*j i+1+M*(j-1); 
             i+M*j i+1+M*j i+1+M*(j-1)];
     end
 end
@@ -44,7 +45,7 @@ for n = 1:length(T)
     S = abs(det(m))*0.5; 
 
     % Contruct stiff matrix
-    % element stiff matrix
+    % element stiff matrix can be computed b.c. basis ftns are 1st order.
     p11 = p1(1:2)'*p1(1:2)*S;
     p22 = p2(1:2)'*p2(1:2)*S;
     p33 = p3(1:2)'*p3(1:2)*S;
@@ -161,11 +162,11 @@ while stop_crt > 1e-5
     x = x_new;
     r = r_new;
     d = d_new;
-
+    % renew approxiamtion and residual
     alpha = -(r'*d)/(d'*(A*d));
     x_new = x + alpha*d;
     r_new = A*x_new - b;
-    
+    % renew direction
     beta = (r_new'*(A*d))/(d'*(A*d));
     d = -r_new + beta*d;
         
