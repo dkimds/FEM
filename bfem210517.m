@@ -168,7 +168,7 @@ while stop_crt > 1e-5
     r_new = A*x_new - b;
     % renew direction
     beta = (r_new'*(A*d))/(d'*(A*d));
-    d = -r_new + beta*d;
+    d_new = -r_new + beta*d;
         
     stop_crt = max(x_new - x)/max(x_new);    
 end
