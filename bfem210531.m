@@ -1,5 +1,4 @@
-% Solve the BVP by seperating final solution to boundary value and interior
-% value.
+% Solve the Neuman BVP by the mean information
 clear
 % Source
 f = @(x,y) -2*pi*pi*cos(pi*x)*cos(pi*y);
@@ -93,107 +92,13 @@ for n = 1:length(T)
     b(k(3)) = b(k(3)) + qd3;  
 end
 
-% Find indice of bdr points and evaluate values of theirs.
-BDR = [];
-ub=zeros(length(N),1);
-
-for k = 1:length(N)
-    x = N(k,1);
-    y = N(k,2);
-    
-    if x==0
-        BDR=[BDR k];
-        ub(k) = cos(pi*y);
-    elseif x == 1
-        BDR=[BDR k];
-        ub(k) = -cos(pi*y);
-    elseif y == 0
-        BDR=[BDR k];
-        ub(k) = cos(pi*x);
-    elseif y == 1
-        BDR=[BDR k];
-        ub(k) = -cos(pi*x);
-    end
-end
-BDR = unique(BDR, 'rows');
-
-% Subtract RHS(A*ub) on b to find the interior solution
-b = b-A*ub;
-final_sol = zeros(length(N),1);
-% Find indice of the interior points
-all = 1:length(N);
-INT = setdiff(all, BDR);
-% Solve the equation wrt only interior pts
-A(BDR,:)=[];
-A(:,BDR)=[];
-b(BDR)=[];
-z=A\b;
-final_sol(INT)=z;
-final_sol = final_sol + ub;
-
-% Error Analysis
-u = @(x,y) cos(pi*x).*cos(pi*y);
-u_ext = u(N(:,1),N(:,2));
-
-err_l1 = max(final_sol - u_ext);
-
-err_l2 = sqrt(sum((final_sol - u_ext).^2));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+% expand the stiff matrix with mean information
+A = [A;(ones(1,length(N)))];
+A = [A (ones(length(N)+1,1))];
+% reduce the condition number
+A(end,end) = 1e-3;
+% expand RHS with mean information
+b = [b;0];
+x = A\b;
+condest(A)
 
