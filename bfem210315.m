@@ -21,7 +21,7 @@ col = repmat(x, 1, M);
 row = reshape(repmat(x, M, 1), [numel(repmat(x, M, 1)), 1]);
 plot(row, col, ".")
 
-% A matrix
+% Compute by hand and make by matlab
 A = sparse(M, M);
 
 B = diag(ones(1,M));
