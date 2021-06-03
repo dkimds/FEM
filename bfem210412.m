@@ -74,11 +74,13 @@ end
 B = unique(B, 'rows');
 A(B,:)=[];
 A(:,B)=[];
+all = 1:length(N);
+INT = setdiff(all,B);
 
 % Solve the matrix equation w/ back-slash operation
 f = @(x, y) 2*pi*pi*sin(pi*x).*sin(pi*y);
 rhs = f(N(:,1),N(:,2))*h*h*0.5;
 rhs(B)=[];
-
 pre_u=A\rhs;
-
+fin_u=zeros(length(N),1);
+fin_u(INT)=pre_u;
