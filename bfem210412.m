@@ -1,3 +1,4 @@
+% Example for Midterm Project
 clear
 h=1/8;
 x=0:h:1;
