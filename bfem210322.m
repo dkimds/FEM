@@ -8,7 +8,11 @@ col = repmat(x',M,1);
 row = reshape(repmat(x,M,1),[numel(col),1]);
 N=[row, col];
 
-% triangluation
+% % triangluation by built-in function
+% T=delaunay(N);
+% trimesh(T, N(:,1),N(:,2))
+
+% triangluation by brute force
 T = [];
 for j = 1:M-1
     for i = 1:M-1
