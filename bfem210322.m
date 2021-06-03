@@ -1,3 +1,4 @@
+% make mesh with a nonconcex boundary 
 clear
 h=1/4;
 x=0:h:1;
