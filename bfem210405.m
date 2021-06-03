@@ -1,3 +1,4 @@
+% Construct the stiffness matrix A on 2D
 clear
 h=1/4;
 x=0:h:1;
@@ -21,7 +22,7 @@ end
 % % Visualize mesh
 % trimesh(T,N(:,1),N(:,2))
 
-%stiffness matrix A
+% stiffness matrix A
 A =sparse(M^2,M^2);
 for n = 1:length(T)
     k = T(n,:);
