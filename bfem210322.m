@@ -41,6 +41,10 @@ for n = 1:length(T)
     if x3 > 0.5 && y3 > 0.5
         B=[B n];
     end
+    
+    if x1 == 0.5 && y1 == 0.5 && x3 == 0.5 && y3 == 0.5+h
+        B=[B n];
+    end
 end
 
 B = unique(B);
