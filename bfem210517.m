@@ -1,5 +1,4 @@
-% Solve the matrix equation with iterative methods such as Jacobi, GS and
-% CG
+% Solve the matrix equation with the Conjugate Gradient method
 clear
 % Source
 f = @(x,y) 2*pi*pi*sin(pi*x)*sin(pi*y);
@@ -115,40 +114,40 @@ A(:,B)=[];
 b(B) = [];
 M = length(b);
 
-% Jacobi method
-stop_crt = 1;
-x_new = zeros(M,1);
-k1 = 0; % # of iter
-while stop_crt > 1e-5
-    k1 = k1 + 1;
-    x = x_new;
-    for i = 1:M
-        x_new(i) = b(i) - A(i,:)*x + A(i,i)*x(i);
-        x_new(i) = x_new(i)/A(i,i);
-    end
-    stop_crt = max(x_new-x)/max(x_new);
-end
+% % Jacobi method
+% stop_crt = 1;
+% x_new = zeros(M,1);
+% k1 = 0; % # of iter
+% while stop_crt > 1e-5
+%     k1 = k1 + 1;
+%     x = x_new;
+%     for i = 1:M
+%         x_new(i) = b(i) - A(i,:)*x + A(i,i)*x(i);
+%         x_new(i) = x_new(i)/A(i,i);
+%     end
+%     stop_crt = max(x_new-x)/max(x_new);
+% end
 
-% Gauss-Siedel method
-stop_crt = 1;
-x_new = zeros(M,1);
-k2 = 0; % # of iter
-while stop_crt > 1e-5
-    k2 = k2 + 1;
-    x = x_new;
-    for i = 1:M
-        if i == 1
-            x_new(i) = b(i) - A(i,2:end)*x(2:end);
-        elseif i == M
-            x_new(i) = b(i) - A(i,1:end-1)*x_new(1:end-1);          
-        else
-            x_new(i) = b(i) - A(i,1:i-1)*x_new(1:i-1) ...
-                            - A(i,i+1:end)*x(i+1:end);
-        end
-        x_new(i) = x_new(i)/A(i,i);
-    end
-    stop_crt = max(x_new-x)/max(x_new);
-end
+% % Gauss-Siedel method
+% stop_crt = 1;
+% x_new = zeros(M,1);
+% k2 = 0; % # of iter
+% while stop_crt > 1e-5
+%     k2 = k2 + 1;
+%     x = x_new;
+%     for i = 1:M
+%         if i == 1
+%             x_new(i) = b(i) - A(i,2:end)*x(2:end);
+%         elseif i == M
+%             x_new(i) = b(i) - A(i,1:end-1)*x_new(1:end-1);          
+%         else
+%             x_new(i) = b(i) - A(i,1:i-1)*x_new(1:i-1) ...
+%                             - A(i,i+1:end)*x(i+1:end);
+%         end
+%         x_new(i) = x_new(i)/A(i,i);
+%     end
+%     stop_crt = max(x_new-x)/max(x_new);
+% end
 
 % Conjugate Gradient method
 stop_crt = 1;

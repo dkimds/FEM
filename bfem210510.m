@@ -1,5 +1,4 @@
-% Solve the matrix equation with iterative methods such as Jacobi, GS and
-% CG
+% Solve the matrix equation with iterative methods such as Jacobi, GS
 clear
 % Source
 f = @(x,y) 2*pi*pi*sin(pi*x)*sin(pi*y);
