@@ -1,4 +1,4 @@
-% Solve the BVP by seperating final solution to boundary value and interior
+% Solve the inhomogeneous Dirichlet BVP by seperating final solution to boundary value and interior
 % value.
 clear
 % Source
